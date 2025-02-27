@@ -8,21 +8,30 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
-  // Default to dark mode if no theme is set
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const storedTheme = localStorage.getItem('theme');
-    return storedTheme ? storedTheme === 'dark' : true; // Default to dark mode
-  });
+  const [isDarkMode, setIsDarkMode] = useState(null); // Start as null to avoid hydration mismatch
 
-  // Save theme preference in localStorage
   useEffect(() => {
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
+    const storedTheme = localStorage.getItem('theme');
+    const prefersDark = storedTheme ? storedTheme === 'dark' : true; // Default to dark mode
 
-  // Optimized theme toggle function
-  const toggleTheme = useCallback(() => {
-    setIsDarkMode((prevMode) => !prevMode);
+    setIsDarkMode(prefersDark);
+    document.documentElement.classList.toggle('dark', prefersDark);
   }, []);
+
+  // Function to toggle theme
+  const toggleTheme = useCallback(() => {
+    setIsDarkMode((prevMode) => {
+      const newMode = !prevMode;
+      localStorage.setItem('theme', newMode ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', newMode);
+      return newMode;
+    });
+  }, []);
+
+  // Hide content until theme is set
+  if (isDarkMode === null) {
+    return <div className="min-h-screen bg-gray-900"></div>; // Temporary dark background
+  }
 
   return (
     <div
