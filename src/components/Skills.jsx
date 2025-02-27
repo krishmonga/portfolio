@@ -7,7 +7,7 @@ const Skills = ({ isDarkMode }) => {
     {
       category: 'Frontend',
       icon: <Layout size={24} />,
-      items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'HTML5/CSS3']
+      items: ['React', 'JavaScript', 'Next.js', 'Tailwind CSS', 'HTML5/CSS3']
     },
     {
       category: 'Backend',
@@ -17,13 +17,9 @@ const Skills = ({ isDarkMode }) => {
     {
       category: 'Database',
       icon: <Database size={24} />,
-      items: ['MongoDB', 'PostgreSQL', 'MySQL', 'Redis']
+      items: ['MongoDB', 'MySQL', ]
     },
-    {
-      category: 'DevOps',
-      icon: <Cloud size={24} />,
-      items: ['Git', 'Docker', 'AWS', 'CI/CD', 'Linux']
-    },
+    
     {
       category: 'Programming',
       icon: <Code size={24} />,
@@ -32,7 +28,7 @@ const Skills = ({ isDarkMode }) => {
     {
       category: 'Tools',
       icon: <Terminal size={24} />,
-      items: ['VS Code', 'Git', 'Postman', 'Docker', 'Figma']
+      items: ['VS Code', 'Git', 'Postman', 'Figma']
     }
   ];
 
