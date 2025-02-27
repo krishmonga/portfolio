@@ -8,9 +8,10 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 
 function App() {
-  // Load dark mode preference from localStorage
+  // Default to dark mode if no theme is set
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
+    const storedTheme = localStorage.getItem('theme');
+    return storedTheme ? storedTheme === 'dark' : true; // Default to dark mode
   });
 
   // Save theme preference in localStorage
