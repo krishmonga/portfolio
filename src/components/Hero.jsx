@@ -58,7 +58,7 @@ const Hero = ({ isDarkMode }) => {
               <div className={`absolute -inset-1 rounded-full blur-xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-70 ${isDarkMode ? 'opacity-40' : 'opacity-20'}`}></div>
               <div className="relative">
                 <img 
-                  src="your-image-url" // Replace with your actual image URL
+                  src="krish.jpg" // Replace with your actual image URL
                   alt="Krish Monga"
                   className="rounded-full w-40 h-40 md:w-56 md:h-56 object-cover border-2 border-blue-500 ring-4 ring-blue-500/20"
                 />
