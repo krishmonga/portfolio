@@ -1,8 +1,27 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import { Download } from 'lucide-react';
 
 const About = ({ isDarkMode }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+    
+    const section = document.getElementById('about');
+    if (section) observer.observe(section);
+    
+    return () => {
+      if (section) observer.unobserve(section);
+    };
+  }, []);
+
   const handleDownload = () => {
     const resumeUrl = '/resume.pdf';
     const link = document.createElement('a');
@@ -14,67 +33,86 @@ const About = ({ isDarkMode }) => {
   };
 
   return (
-    <section id="about" className={`py-20 px-4 md:px-8 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+    <section 
+      id="about" 
+      className={`py-24 px-6 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}
+    >
       <div className="container mx-auto max-w-5xl">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
-        >
-          About Me
-        </motion.h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
-          >
-            <img 
-              src="about.png"
-              alt="About Me"
-              className="rounded-2xl shadow-lg w-full max-w-sm mx-auto md:mx-0"
-              loading="lazy"
-            />
-          </motion.div>
+        <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'}`}>
+          <div className="flex flex-col items-center mb-16">
+            <div className="inline-flex items-center justify-center mb-3">
+              <div className="h-px w-8 bg-blue-500 mr-3"></div>
+              <span className={`text-sm uppercase tracking-wider font-medium ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>About Me</span>
+              <div className="h-px w-8 bg-blue-500 ml-3"></div>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-center">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+                My Journey
+              </span>
+            </h2>
+          </div>
           
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-6 text-center md:text-left"
-          >
-            <p className={isDarkMode ? 'text-gray-300' : 'text-gray-700'}>
-              I'm a passionate Full Stack Developer with a strong foundation in both front-end and back-end technologies.
-              My journey in web development started with a curiosity to create meaningful digital experiences.
-            </p>
-            <p className={isDarkMode ? 'text-gray-300' : 'text-gray-700'}>
-              I specialize in building responsive web applications using modern technologies like React, Node.js, and JavaScript.
-              I'm always excited to learn new technologies and solve complex problems.
-            </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 transform-none' : 'opacity-0 -translate-x-8'}`}>
+              <div className="relative group">
+                {/* Image subtle enhancement */}
+                <div className="relative">
+                  <img
+                    src="about.png"
+                    alt="About Me"
+                    className="rounded-2xl shadow-lg w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 rounded-2xl shadow-inner"></div>
+                </div>
+              </div>
+            </div>
             
-            <motion.button
-              onClick={handleDownload}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: 0.2 }}
-              className={`flex items-center justify-center md:justify-start gap-2 px-6 py-3 rounded-lg transition-all duration-300 w-full md:w-auto mx-auto md:mx-0 ${
-                isDarkMode 
-                  ? 'bg-blue-600 hover:bg-blue-700 text-white' 
-                  : 'bg-blue-500 hover:bg-blue-600 text-white'
-              }`}
-            >
-              <Download size={20} />
-              Download Resume
-            </motion.button>
-          </motion.div>
+            <div className={`space-y-6 text-center md:text-left transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 transform-none' : 'opacity-0 translate-x-8'}`}>
+              <div className="space-y-6">
+                <p className={`text-lg leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  I'm a <span className="font-semibold text-blue-500">Full Stack Developer</span> with a passion for crafting exceptional digital experiences that blend aesthetics with functionality.
+                </p>
+                
+                <p className={`leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  My development journey began with curiosity and has evolved into expertise across the entire web application stack. I bring ideas to life through clean code and thoughtful architecture.
+                </p>
+                
+                <p className={`leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                  I specialize in building responsive web applications using <span className={`font-medium ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>React</span>, <span className={`font-medium ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>Node.js</span>, and modern JavaScript. My approach focuses on creating scalable, maintainable solutions that deliver exceptional user experiences.
+                </p>
+                
+                <div className="pt-6 flex flex-wrap gap-3">
+                  {['JavaScript', 'React', 'Node.js', 'TypeScript', 'Next.js', 'Tailwind CSS'].map((skill) => (
+                    <span 
+                      key={skill} 
+                      className={`px-3 py-1 rounded-full text-sm ${
+                        isDarkMode 
+                          ? 'bg-gray-800 text-gray-300' 
+                          : 'bg-gray-200 text-gray-800'
+                      }`}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="pt-6">
+                <button
+                  onClick={handleDownload}
+                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-300 shadow-md ${
+                    isDarkMode
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white' 
+                      : 'bg-blue-600 hover:bg-blue-700 text-white'
+                  }`}
+                >
+                  <Download size={18} />
+                  Download Resume
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

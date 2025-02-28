@@ -6,29 +6,53 @@ const Projects = ({ isDarkMode }) => {
   const [activeTab, setActiveTab] = useState('all');
 
   const projects = [
-    {
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce platform with React, Node.js, and MongoDB',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
-      category: 'fullstack',
-      github: '#',
-      demo: '#'
-    },
+    // {
+    //   title: 'E-Commerce Platform',
+    //   description: 'A full-stack e-commerce platform with React, Node.js, and MongoDB',
+    //   image:"",
+    //   category: 'fullstack',
+    //   github: '#',
+    //   demo: '#'
+    // },
     {
       title: 'Task Management App',
       description: 'React-based task management application with drag-and-drop functionality',
-      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      image:  "task.png",
       category: 'frontend',
-      github: '#',
-      demo: '#'
+      github: 'https://github.com/krishmonga/taskflow',
+      demo: 'https://taskflow-git-main-krish-mongas-projects.vercel.app/'
     },
     {
-      title: 'Real-time Chat',
-      description: 'WebSocket-based real-time chat application',
-      image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      title: 'SIAM-JUIT',
+      description: 'Website for the SIAM JUIT organisation',
+      image:  "siam.png",
+      category: 'frontend',
+      // github: '#',
+      demo: 'https://siamjuit.vercel.app/'
+    },
+    {
+      title: 'Book Store ',
+      description:  " 📚 A bookstore where you can find a wide variety of books.",
+      image:  "bookstore.png",
+      category: 'frontend',
+      github: 'https://github.com/krishmonga/Book-Store-with-JWT-Auth/tree/main',
+      demo: 'https://book-store-with-jwt-auth.vercel.app/'
+    },
+    {
+      title: 'AI assistant ',
+      description: "Personal AI assistant with speech recognition and smart task execution with Python.",
+      image:"ai.png",
       category: 'backend',
-      github: '#',
-      demo: '#'
+      github: 'https://github.com/krishmonga/ai-assistant',
+      demo: 'STILL WORKING'
+    },
+    {
+      title: 'OutPass Managemnt  ',
+      description: "outpass management app for the juit students ",
+      image: "outpass.png",
+      category: 'fullstack',
+      github: 'https://github.com/krishmonga/outpass_management',
+      demo: 'STILL WORKING'
     }
   ];
 
@@ -116,13 +140,22 @@ const Projects = ({ isDarkMode }) => {
                       Code
                     </motion.a>
                     <motion.a 
-                      href={project.demo}
-                      whileHover={{ x: 2 }}
-                      className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
-                    >
-                      <ExternalLink size={20} />
-                      Demo
-                    </motion.a>
+                    href={project.demo !== 'STILL WORKING' ? project.demo : '#'}
+                    target={project.demo !== 'STILL WORKING' ? "_blank" : undefined}
+                    rel={project.demo !== 'STILL WORKING' ? "noopener noreferrer" : undefined}
+                    whileHover={{ x: 2 }}
+                    className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+                    onClick={(e) => {
+                   if (project.demo === 'STILL WORKING') {
+                   e.preventDefault();
+                    alert("Still Working 🚧");
+    }
+  }}
+>
+  <ExternalLink size={20} />
+  Demo
+</motion.a>
+
                   </div>
                 </div>
               </motion.div>
